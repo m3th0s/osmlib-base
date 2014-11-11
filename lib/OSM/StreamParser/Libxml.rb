@@ -31,11 +31,10 @@ module OSM
     def initialize(options)
       super(options)
 
-      @parser = XML::SaxParser.new
       if @filename.nil?
-        @parser = XML::SaxParser.string(@string)
+        @parser = XML::SaxParser.new(XML::Parser::Context.string(@string))
       else
-        @parser = XML::SaxParser.file(@filename)
+        @parser = XML::SaxParser.new(XML::Parser::Context.file(@filename))
       end
       @parser.callbacks = @callbacks
     end
